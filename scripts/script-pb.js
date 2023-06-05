@@ -7,6 +7,23 @@ var playerRoster;
 var TEAM_ID = 420;
 var COHORT_ID = 221;
 
+var KEY_ENUM = Object.freeze({
+  "ID":0,
+  "NAME":1,
+  "BREED":2,
+  "STATUS":3,
+  "IMAGE":4,
+  "CREATE":5,
+  "UPDATE":6,
+  "TEAM":7,
+  "COHORT":8,
+  "NONE":9
+})
+var REVERSE_ENUM=Object.freeze({
+  "TRUE": true,
+  "FALSE": false
+})
+
 const validatedURL = (api_param, id_param) => {
   const validatedId = (id_param) => {
     const idPattern = new RegExp(/^\d{2}\d+$/);
@@ -165,7 +182,7 @@ const renderNewPlayerForm = () => {
 
   try {
    newPlayerFormContainer.innerHTML = generatePlayerForm();
-   const buttonSubmit = newPlayerFormContainer.querySelector('type="submit"');
+   const buttonSubmit = newPlayerFormContainer.querySelector('input[type="submit"]');
    console.log("Submit")
    console.log(buttonSubmit);
    buttonSubmit.addEventListener("click", function (e) {
@@ -176,44 +193,115 @@ const renderNewPlayerForm = () => {
   }
 };
 
-const update = () => {
-  //Update displayed players
+const sortBy = (players, sort_value=KEY_ENUM.NONE,reverse=REVERSE_ENUM.FALSE) => {
+  const option = sort_value;
+  let sortedRoster = [...players]
+  if(sort_value!==KEY_ENUM.NONE){
+       sortedRoster = players.sort((a,b) => (a[Object.keys(a)[option]] > b[Object.keys(b)[option]]) ? 1 : ((b[Object.keys(b)[option]] > a[Object.keys(a)[option]]) ? -1 : 0))
+  }
+  if(reverse)return sortedRoster.reverse();
+  return sortedRoster;
 }
-const displayBy = () =>{
-   /*
-  Options:
-  -All by default
-  -Otherwise by filter selection
-  */
-}
-const sortBy = () => {
- /*
-  Options:
-  -All/No selection by default
-  -Name
-  -Breed
-  -team_id
-  -cohort_id
-  -createdAt
-  */
-}
-const filterBy = () => {
-  /*
-  Options:
-  -All/No selection by default
-  -Name
-  -Breed
-  -Team
-  -Cohort
-  */
+
+const filterBy = (players,value,option=KEY_ENUM.NONE) => {
+  let predicate = String(value).toLowerCase();
+  let filteredRoster = [...players]
+  if(option!==KEY_ENUM.NONE){
+       filteredRoster = players.filter(player => String(player[Object.keys(player)[option]]).toLowerCase().includes(predicate));
+  }
+  return filteredRoster;
 }
 
 await updateRoster();
 const init = async () => {
+  generateSelectSort();
+  generateSelectFilter()
   const players = getRoster();
   renderAllPlayers(players);
   renderNewPlayerForm();
 };
+const generateSelectSort = () => {
+  const selectMenu = document.createElement('select');
+  selectMenu.classList.add('select-sort,options-sort');
+  selectMenu.setAttribute('name','sorting')
+  const options =`
+  <option value="ID">ID</option>
+  <option value="NAME">Name</option>
+  <option value="BREED">Breed</option>
+  <option value="STATUS">Status</option>
+  <option value="CREATE">Created</option>
+  <option value="UPDATE">Updated</option>
+  <option value="TEAM">Team ID</option>
+  <option value="COHORT">Cohort ID</option>
+  `
+  selectMenu.innerHTML = options
+  selectMenu.addEventListener("change",(e)=>{
+    const selectElement = e.target;
+    console.log(selectElement);
+    const sortOp = selectElement.value;
+    const sortedplayers = sortBy(getRoster(),KEY_ENUM[sortOp]);
+    console.log(sortedplayers);
+    document.getElementById('all-players-container').innerHTML='';
+    renderAllPlayers(sortedplayers);
+  })
+  /*
+  const selectButton = document.createElement('button');
+  selectButton.classList.add('select-sort');
+  selectButton.setAttribute('id', 'button-sort');
+  selectButton.innerHTML="<i class='fas fa-arrow-up-right-dots'></i>";
+  selectButton.addEventListener('click', (e)=>{
+
+  })
+  */
+ const container = document.getElementsByClassName('select-sort');
+ container[0].appendChild(selectMenu);
+}
+
+const generateSelectFilter = () => {
+  const filterMenu = document.createElement('select');
+  filterMenu.classList.add('select-filter','options-filter');
+  filterMenu.setAttribute('name','filtering')
+  const options =`
+  <option value="ID">ID</option>
+  <option value="NAME">Name</option>
+  <option value="BREED">Breed</option>
+  <option value="STATUS">Status</option>
+  <option value="CREATE">Created</option>
+  <option value="UPDATE">Updated</option>
+  <option value="TEAM">Team ID</option>
+  <option value="COHORT">Cohort ID</option>
+  `
+  filterMenu.innerHTML = options
+  
+  const filterInput = document.createElement('input');
+  filterInput.classList.add('select-filter');
+  filterInput.setAttribute('id','input-filter')
+
+  const filterButton = document.createElement('button');
+  filterButton.classList.add('select-filter');
+  filterButton.setAttribute('id', 'button-filter');
+  filterButton.innerHTML="filter";
+    filterButton.addEventListener("click", (e)=>{    
+    const fInput = e.target.previousSibling;
+    const predicate = fInput.value;
+    const fMenu = fInput.previousSibling;
+    const filterOp = fMenu.value;    
+    const filteredplayers = filterBy(getRoster(),predicate,KEY_ENUM[filterOp]);
+    console.log(filteredplayers);
+    document.getElementById('all-players-container').innerHTML='';
+    renderAllPlayers(filteredplayers);
+  })
+  
+  
+  filterMenu.addEventListener("change",(e)=>{
+    const filterElement = e.target;
+    console.log(filterElement);
+  })
+ const container = document.getElementsByClassName('select-filter');
+ container[0].appendChild(filterMenu);
+ container[0].appendChild(filterInput);
+ container[0].appendChild(filterButton);
+}
 
 const generatePlayerForm = () => {
   return `
