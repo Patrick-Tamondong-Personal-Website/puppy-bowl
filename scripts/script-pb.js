@@ -39,9 +39,8 @@ const validatedURL = (api_param, id_param) => {
 }
 
 const sendRequest = async (api, id = "", options = {}) => {
-  let fetchOptions = { method: "GET", ...options };
   try{
-    const resp = await fetch(validatedURL(api, id), fetchOptions);
+    const resp = await fetch(validatedURL(api, id), options);
     console.log(resp);
     const data = await resp.json();
     console.log(data);
@@ -52,7 +51,7 @@ const sendRequest = async (api, id = "", options = {}) => {
   }
 };
 const updateRoster = async () => {
-  const playersData = await sendRequest(PLAYERURL);
+  const playersData = await sendRequest(PLAYERURL,'',{method:'GET',});
   playerRoster = playersData.data.players;
 };
 const getRoster = () => {return playerRoster;};
