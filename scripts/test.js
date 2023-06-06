@@ -1,4 +1,80 @@
-    var KEY_ENUM=Object.freeze({
+/*{
+  "id": 375,
+  "name": "Ruff",
+  "score": 0,
+  "createdAt": "2023-05-09T02:46:58.428Z",
+  "updatedAt": "2023-05-09T02:46:58.428Z",
+  "cohortId": 221,
+  "players": [
+    {
+      "id": 3969,
+      "name": "Anise",
+      "breed": "Australian Cattle Dog / Labrador Retriever",
+      "status": "field",
+      "imageUrl": "http://r.ddmcdn.com/w_912/s_f/o_1/cx_51/cy_0/cw_912/ch_1368/APL/uploads/2019/12/Anise-PBXVI.jpg",
+      "createdAt": "2023-05-09T02:46:58.444Z",
+      "updatedAt": "2023-05-09T02:46:58.444Z",
+      "teamId": 375,
+      "cohortId": 221
+    },
+    {
+      "id": 3970,
+      "name": "Bert",
+      "breed": "Great Pyrenees / Weimaraner",
+      "status": "field",
+      "imageUrl": "http://r.ddmcdn.com/w_1010/s_f/o_1/cx_0/cy_4/cw_1010/ch_1515/APL/uploads/2019/12/Bert-PBXVI.jpg",
+      "createdAt": "2023-05-09T02:46:58.444Z",
+      "updatedAt": "2023-05-09T02:46:58.444Z",
+      "teamId": 375,
+      "cohortId": 221
+    },
+    {
+      "id": 3975,
+      "name": "Gina",
+      "breed": "Labrador Retriever / Chow Chow",
+      "status": "bench",
+      "imageUrl": "http://r.ddmcdn.com/w_1012/s_f/o_1/cx_0/cy_0/cw_1012/ch_1518/APL/uploads/2019/12/Gina-PBXVI.jpg",
+      "createdAt": "2023-05-09T02:46:58.444Z",
+      "updatedAt": "2023-05-09T02:46:58.444Z",
+      "teamId": 375,
+      "cohortId": 221
+    },
+    {
+      "id": 3976,
+      "name": "Huck",
+      "breed": "Miniature Poodle / Shih Tzu",
+      "status": "bench",
+      "imageUrl": "http://r.ddmcdn.com/w_962/s_f/o_1/cx_25/cy_0/cw_962/ch_1443/APL/uploads/2019/12/Huck-PBXVI.jpg",
+      "createdAt": "2023-05-09T02:46:58.444Z",
+      "updatedAt": "2023-05-09T02:46:58.444Z",
+      "teamId": 375,
+      "cohortId": 221
+    },
+    {
+      "id": 3977,
+      "name": "Jack",
+      "breed": "Chihuahua / Miniature Poodle",
+      "status": "bench",
+      "imageUrl": "http://r.ddmcdn.com/w_926/s_f/o_1/cx_42/cy_0/cw_926/ch_1389/APL/uploads/2019/12/Jack-PBXVI.jpg",
+      "createdAt": "2023-05-09T02:46:58.444Z",
+      "updatedAt": "2023-05-09T02:46:58.444Z",
+      "teamId": 375,
+      "cohortId": 221
+    },
+    {
+      "id": 3978,
+      "name": "Kenny",
+      "breed": "Golden Retriever / Boxer",
+      "status": "bench",
+      "imageUrl": "http://r.ddmcdn.com/w_1012/s_f/o_1/cx_0/cy_0/cw_1012/ch_1518/APL/uploads/2019/12/Kenny-PBXVI.jpg",
+      "createdAt": "2023-05-09T02:46:58.444Z",
+      "updatedAt": "2023-05-09T02:46:58.444Z",
+      "teamId": 375,
+      "cohortId": 221
+    }
+  ]
+}
+  /*  var KEY_ENUM=Object.freeze({
       "ID":0,
       "NAME":1,
       "BREED":2,
@@ -13,7 +89,7 @@
 
     const str = "COHORT";
     console.log(KEY_ENUM[str])
-/*
+
     const filterBy = (players,value,option='') => {
         let predicate = String(value).toLowerCase();
         let filteredRoster = [...players]
@@ -35,4 +111,5 @@ console.log(String(72).toLowerCase());
 let player = players[1];
 let a = player[3]
 console.log(a)
+
 */

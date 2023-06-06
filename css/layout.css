@@ -1,0 +1,17 @@
+
+#all-players-container{
+    max-width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1em;
+    align-items: center;
+    justify-content: center;
+  }
+
+
+.page{
+  height: 100vh;
+}
+.select{
+    display: flex;
+}

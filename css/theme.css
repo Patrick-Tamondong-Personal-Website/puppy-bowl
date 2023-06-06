@@ -1,0 +1,17 @@
+/*
+Color palette
+255, 160, 61
+135, 64, 0
+255, 238, 189
+239, 244, 108
+71, 106, 111
+*/
+
+body{
+    background-color: rgba(255,238,189,1);
+    color: rgba(255,160,61,1);
+}
+.section{
+    background-color: rgba(255,160,61,1);
+    color: rgba(255,238,189,1);
+}

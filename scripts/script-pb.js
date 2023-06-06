@@ -2,7 +2,9 @@ const playerContainer = document.getElementById('all-players-container');
 const newPlayerFormContainer = document.getElementById('new-player-form');
 
 // Use the APIURL variable for fetch requests
-const APIURL = `https://fsa-puppy-bowl.herokuapp.com/api/2302-acc-pt-web-pt-a/players`;
+const PLAYERURL = `https://fsa-puppy-bowl.herokuapp.com/api/2302-acc-pt-web-pt-a/players`;
+
+const TEAMURL = `https://fsa-puppy-bowl.herokuapp.com/api/2302-acc-pt-web-pt-a/teams`;
 var playerRoster;
 var TEAM_ID = 420;
 var COHORT_ID = 221;
@@ -40,6 +42,7 @@ const sendRequest = async (api, id = "", options = {}) => {
   let fetchOptions = { method: "GET", ...options };
   try{
     const resp = await fetch(validatedURL(api, id), fetchOptions);
+    console.log(resp);
     const data = await resp.json();
     console.log(data);
     return data;
@@ -49,39 +52,42 @@ const sendRequest = async (api, id = "", options = {}) => {
   }
 };
 const updateRoster = async () => {
-  const playersData = await sendRequest(APIURL);
+  const playersData = await sendRequest(PLAYERURL);
   playerRoster = playersData.data.players;
 };
 const getRoster = () => {return playerRoster;};
 
 const checkRoster = async(id) => {
-  const req = await sendRequest(APIURL,id);
+  const req = await sendRequest(PLAYERURL,id);
   return await req.success
 }
 const getPlayer = async(id) => {
   if(playerRoster.some(el => el.id === id))return true;
-  const req = await sendRequest(APIURL,id);
+  const req = await sendRequest(PLAYERURL,id);
   return await req.data;
 }
 
 const addNewPlayer = async (data) => {
+  console.log('Adding');
+  
   console.log(data)
   if(!await checkRoster(data.id)){
     data.updatedAt= new Date().toISOString();
-    const req = await sendRequest(APIURL,'', {
+    const req = await sendRequest(PLAYERURL,'', {
       method: "POST", // or 'PUT'
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(data),
     });
+    console.log(req);
   }
 }     
 const updatePlayer = async (data) => {
   console.log(data)
   if(!await checkRoster(data.id)){
     data.updatedAt= new Date().toISOString();
-    const req = await sendRequest(APIURL,'', {
+    const req = await sendRequest(PLAYERURL,'', {
       method: "PUT", // or 'PUT'
       headers: {"Content-Type": "application/json",},
       body: JSON.stringify(data),
@@ -92,7 +98,7 @@ const updatePlayer = async (data) => {
 
 const deletePlayer = async (id) => {
   try {
-    await sendRequest(APIURL,id,{method: 'DELETE',})
+    await sendRequest(PLAYERURL,id,{method: 'DELETE',})
   }catch(err){
     console.error(`Whoops, trouble removing player #${playerId} from the roster!`,err);
   }
@@ -148,18 +154,21 @@ L__   <{s}>_____________<_______<{s}>____<{s}>__<{s}>__<{s}>_______=
 
 const renderCard = (player) => {
   const playerCard = document.createElement('div');
-    playerCard.classList.add("player");
-    playerCard.innerHTML=`<div>
-                            <h2>${player.name}</h2>
+    playerCard.classList.add("player-card");
+    playerCard.innerHTML=`<div class="content">
+                            <p class="player-name">${player.name}</p>
+                            <p class="player-breed">${player.breed}</p>
+                            </div>
                             <img src='${player.imageUrl}'/>
-                            <p class="p-type">${player.breed}</p>
-                            <p>${player.status}</p>
+                          `;
+/*                            <p>${player.status}</p>
                             <footer>
                               ${player.id}
                               ${player.teamId}
                               ${player.cohortId}
                             </footer>
-                          </div>`;
+ */                           
+
  return playerCard
 }
 
@@ -219,6 +228,7 @@ const init = async () => {
   const players = getRoster();
   renderAllPlayers(players);
   renderNewPlayerForm();
+ //addNewPlayer(generateRandomPlayer())
 };
 const generateSelectSort = () => {
   const selectMenu = document.createElement('select');
