@@ -7,27 +7,66 @@
 
   <link rel="stylesheet" href="./css/normalize.css">
   <link rel="stylesheet" href="./css/styles.css">
-  <title>PuppyBowl</title>
+  <link rel="stylesheet" href="./css/layout.css">
+  <link rel="stylesheet" href="./css/font.css">
+  
+  <link rel="stylesheet" href="./css/theme.css">
+  <link rel="stylesheet" href="./css/card.css">
+  
+  <title>Puppy Bowl</title>
 </head>
 <body>
+  <div class="banner"><img src="https://img.freepik.com/premium-photo/seven-dog-portraits-front-natural-colors_748076-376.jpg?w=1380" class="img-responsive" alt="b" id="banner"></div>
+  
+  <div class="section page page-section">
+    <section class="section-content">
+      <h1>Welcome to the 4th Annual Puppy Bowl Grand Prix!</h1>
+      <p>We are excited to announce that this year's event will take place on June 15th and will feature teams made up entirely of dogs from around the East Coast. This is an incredible opportunity for dog owners to showcase the athleticism and skills of their furry friends.</p>
+      <article>
+        <p>We have an amazing lineup of teams this year, including:</p>
+        <ul>
+          <li>The Boston Bulldogs: These feisty pups are known for their speed and agility. They have been training hard all year and are ready to take on the competition.</li>
+          <li>The New York Pit Bulls: These muscular dogs are a force to be reckoned with. Their strength and determination make them a formidable opponent.</li>
+          <li>The Philadelphia Terriers: These scrappy dogs may be small, but they have big hearts. They have been practicing their teamwork and strategy and are ready to take on any challenge.</li>
+        </ul>
+      </article>      
+      <p>Each team will be competing in a series of events, including sprinting, obstacle courses, and endurance challenges. The competition will be fierce, but we know that these amazing dogs have what it takes to push through and come out on top.</p>
+      <p>In addition to the competition, there will be plenty of fun for spectators and their four-legged friends. We will have a doggy agility course, a dog parade, a pet fair featuring local vendors, and the event that's rapidly becoming a new staple here at the Puppy Bowl Grand Prix, and grown a spot in our hearts, THE HOT DOG EATING CONTEST(... and no not our contestants, no bun intended.)</p>
+      <p>So mark your calendars for June 15th and come out to support these incredible dogs as they compete in the 4th Annual Dog Marathon. It's sure to be a day filled with excitement, energy, and lots of wagging tails! </p>
+    </section>
+  </div>
+  <!-- container for all players -->
   <nav>
     <h1>Puppy Bowl Grand Prix</h1>
   </nav>
-  <!-- form to add new players -->
-  <div id="new-player-form"></div>
-
-  <!-- container for all players -->
-  <div>
+  <div class="page page-player">
     <div class="select">
+      <div class="select-sort">
+        <label>Sort by</label>
+        <br>
+      </div>
+      <div class="select-filter">
+        <label>Filter by</label>
+      <br>
+      </div>
     </div>
-    <div class="select-sort">
-    </div>
-    <div class="select-filter">
-    </div>
-    <div id="all-players-container">
-    </div>
-  
+    <div id="all-players-container"></div>
+    <div class="player-display"></div>
   </div>
+   <!-- form to add new players -->
+   <div class="page page-form">
+      <h1> Enroll your poopies here:</h1>
+      <div id="new-player-form"></div>
+      <h1> Un-enroll your poopies here:(But you're a monster if you do)</h1>
+      <div id="remove-player-form">
+        <form>
+          <label for="id" >ID:</label>
+          <input type="text" id="id" name="for-monsters" value="your're a monster x2">
+          <input type="submit" id="button-delete" value="you're a monster x3">
+        </form>
+      </div>
+
+   </div>
   <!-- import JavaScript -->
   <script type="module" src="./scripts/script-pb.js"></script>
 </body>

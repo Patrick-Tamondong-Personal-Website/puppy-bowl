@@ -1,28 +1,31 @@
-const playerContainer = document.getElementById('all-players-container');
-const newPlayerFormContainer = document.getElementById('new-player-form');
+var fR = new FileReader();
+const playerContainer = document.getElementById("all-players-container");
+const newPlayerFormContainer = document.getElementById("new-player-form");
+const deleteButton = document.getElementById("button-delete");
 
 // Use the APIURL variable for fetch requests
-const APIURL = `https://fsa-puppy-bowl.herokuapp.com/api/2302-acc-pt-web-pt-a/players`;
+const PLAYERURL = `https://fsa-puppy-bowl.herokuapp.com/api/2302-acc-pt-web-pt-a/players`;
+const TEAMURL = `https://fsa-puppy-bowl.herokuapp.com/api/2302-acc-pt-web-pt-a/teams`;
+const TEAM_ID = 420;
+const COHORT_ID = 221;
 var playerRoster;
-var TEAM_ID = 420;
-var COHORT_ID = 221;
 
-var KEY_ENUM = Object.freeze({
-  "ID":0,
-  "NAME":1,
-  "BREED":2,
-  "STATUS":3,
-  "IMAGE":4,
-  "CREATE":5,
-  "UPDATE":6,
-  "TEAM":7,
-  "COHORT":8,
-  "NONE":9
-})
-var REVERSE_ENUM=Object.freeze({
-  "TRUE": true,
-  "FALSE": false
-})
+const KEY_ENUM = Object.freeze({
+  ID: 0,
+  NAME: 1,
+  BREED: 2,
+  STATUS: 3,
+  IMAGE: 4,
+  CREATE: 5,
+  UPDATE: 6,
+  TEAM: 7,
+  COHORT: 8,
+  NONE: 9,
+});
+const REVERSE_ENUM = Object.freeze({
+  TRUE: true,
+  FALSE: false,
+});
 
 const validatedURL = (api_param, id_param) => {
   const validatedId = (id_param) => {
@@ -34,67 +37,98 @@ const validatedURL = (api_param, id_param) => {
     }
   };
   return id_param === "" ? api_param : api_param + "/" + validatedId(id_param);
-}
+};
 
 const sendRequest = async (api, id = "", options = {}) => {
-  let fetchOptions = { method: "GET", ...options };
-  try{
-    const resp = await fetch(validatedURL(api, id), fetchOptions);
+  try {
+    const resp = await fetch(validatedURL(api, id), options);
+    console.log(resp);
     const data = await resp.json();
     console.log(data);
     return data;
-  }catch(err){
+  } catch (err) {
     console.error(err);
     throw new Error("Failed to fetch data");
   }
 };
 const updateRoster = async () => {
-  const playersData = await sendRequest(APIURL);
+  const playersData = await sendRequest(PLAYERURL, "", { method: "GET" });
   playerRoster = playersData.data.players;
 };
-const getRoster = () => {return playerRoster;};
+const getRoster = () => {
+  return playerRoster;
+};
 
-const checkRoster = async(id) => {
-  const req = await sendRequest(APIURL,id);
-  return await req.success
-}
-const getPlayer = async(id) => {
-  if(playerRoster.some(el => el.id === id))return true;
-  const req = await sendRequest(APIURL,id);
-  return await req.data;
-}
+const checkRoster = async (id) => {
+  if (playerRoster.some((el) => el.id === id)) return true;
+  const req = await sendRequest(PLAYERURL, id);
+  return await req.success;
+};
+const getPlayer = async (id) => {
+  if(await checkRoster()===true) return getRoster().filter((e)=> {return e.id === id}) ;
+  const req = await sendRequest(PLAYERURL, id);
+  return await req.data.player;
+};
+
+const addNewTeam = async(...data) => {
+  console.log("Adding team")
+  console.log(data);
+  const team = generateTeam(420,"Jurrasic Bark",data);
+  const req = await sendRequest(TEAMURL,'',{
+    method:"POST",
+    headers:{
+      "Content-Type":"application/json",
+    },
+    body: JSON.stringify(team),
+  })
+  console.log(req);
+};
 
 const addNewPlayer = async (data) => {
-  console.log(data)
-  if(!await checkRoster(data.id)){
-    data.updatedAt= new Date().toISOString();
-    const req = await sendRequest(APIURL,'', {
+  console.log("Adding player");
+  console.log(data);
+  if (!(await checkRoster(data.id))) {
+    data.updatedAt = new Date().toISOString();
+    const req = await sendRequest(PLAYERURL, "", {
       method: "POST", // or 'PUT'
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(data),
     });
+    console.log(req);
   }
-}     
+};
+const update = (players) => {
+  playerContainer.innerHTML = "";
+  renderAllPlayers(players);
+};
 const updatePlayer = async (data) => {
-  console.log(data)
-  if(!await checkRoster(data.id)){
-    data.updatedAt= new Date().toISOString();
-    const req = await sendRequest(APIURL,'', {
-      method: "PUT", // or 'PUT'
-      headers: {"Content-Type": "application/json",},
+  console.log(data);
+  if (!(await checkRoster(data.id))) {
+    data.updatedAt = new Date().toISOString();
+    const req = await sendRequest(PLAYERURL, "", {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),
     });
     return req;
-  }else{console.log("Pupper with ID already in roster")}
+  } else {
+    console.log("Pupper with ID already in roster");
+  }
 };
 
 const deletePlayer = async (id) => {
+  
   try {
-    await sendRequest(APIURL,id,{method: 'DELETE',})
-  }catch(err){
-    console.error(`Whoops, trouble removing player #${playerId} from the roster!`,err);
+    await sendRequest(PLAYERURL, id, { method: "DELETE" });
+    const updatedRoster = [...getRoster()].filter((e)=> {return e.id !== id});
+    update(updatedRoster);
+  } catch (err) {
+    console.error(
+      `Whoops, trouble removing player #${playerId} from the roster!`,
+      err
+    );
   }
 };
 /*                                             >-------------------------V  ^~~~~~~~~~~~~~~~
@@ -147,84 +181,155 @@ L__   <{s}>_____________<_______<{s}>____<{s}>__<{s}>__<{s}>_______=
  */
 
 const renderCard = (player) => {
-  const playerCard = document.createElement('div');
-    playerCard.classList.add("player");
-    playerCard.innerHTML=`<div>
-                            <h2>${player.name}</h2>
+  const playerCard = document.createElement("div");
+  playerCard.classList.add("player-card");
+  playerCard.innerHTML = `<div class="content">
+                            <p class="player-name">${player.name}</p>
+                            <p class="player-breed">${player.breed}</p>
+                            </div>
                             <img src='${player.imageUrl}'/>
-                            <p class="p-type">${player.breed}</p>
-                            <p>${player.status}</p>
+                          `;
+  /*                            <p>${player.status}</p>
                             <footer>
                               ${player.id}
                               ${player.teamId}
                               ${player.cohortId}
                             </footer>
-                          </div>`;
- return playerCard
-}
+ */
+
+  return playerCard;
+};
 
 const renderAllPlayers = (playerList) => {
   try {
-    playerList.forEach( player => {
-    playerContainer.append(renderCard(player));
+    playerList.forEach((player) => {
+      playerContainer.append(renderCard(player));
     });
   } catch (err) {
     console.error("Uh oh, trouble rendering players!", err);
   }
 };
 
-/**
- * It renders a form to the DOM, and when the form is submitted, it adds a new player to the database,
- * fetches all players from the database, and renders them to the DOM.
- */
 
 const renderNewPlayerForm = () => {
-
   try {
-   newPlayerFormContainer.innerHTML = generatePlayerForm();
-   const buttonSubmit = newPlayerFormContainer.querySelector('input[type="submit"]');
-   console.log("Submit")
-   console.log(buttonSubmit);
-   buttonSubmit.addEventListener("click", function (e) {
-    console("Submit clicked")
-   })
+    newPlayerFormContainer.innerHTML = generatePlayerForm();
+    const buttonSubmit = newPlayerFormContainer.querySelector(
+      'input[type="submit"]'
+    );
+    const inputFile = document.querySelector("input[type=file]");
+    const avatar = document.querySelector('img[src=""]');
+
+    console.log("Submit");
+    console.log(buttonSubmit);
+
+    console.log("Imaged");
+    console.log(inputFile);
+
+    inputFile.addEventListener("change", (e) => {
+      console.log("File uploaded");
+      const image = e.target.files[0];
+
+      fR.onload = (e) => {
+        let src = e.target.result;
+        avatar.src = src;
+      };
+      fR.readAsDataURL(image);
+      console.log(avatar);
+    });
+
+    buttonSubmit.addEventListener("click", async function (e) {
+      e.preventDefault();
+      console.log("Submit clicked");
+      console.log(e);
+      const formEl = e.target.closest("form");
+      const inputName = formEl[0].value;
+      const inputBreed = formEl[1].value;
+      const inputStatus = formEl[2].value;
+      const inputTeam = formEl[3].value;
+      const fileImg = avatar.src;
+      const ttp2 = generateCutePoopies(
+        9000,
+        inputName,
+        inputBreed,
+        inputStatus,
+        fileImg,
+        new Date().toISOString(),
+        "",
+        inputTeam,
+        COHORT_ID
+      );
+      await addNewPlayer(ttp2);
+      update();
+    });
   } catch (err) {
     console.error("Uh oh, trouble rendering the new player form!", err);
   }
 };
 
-const sortBy = (players, sort_value=KEY_ENUM.NONE,reverse=REVERSE_ENUM.FALSE) => {
-  const option = sort_value;
-  let sortedRoster = [...players]
-  if(sort_value!==KEY_ENUM.NONE){
-       sortedRoster = players.sort((a,b) => (a[Object.keys(a)[option]] > b[Object.keys(b)[option]]) ? 1 : ((b[Object.keys(b)[option]] > a[Object.keys(a)[option]]) ? -1 : 0))
-  }
-  if(reverse)return sortedRoster.reverse();
-  return sortedRoster;
-}
 
-const filterBy = (players,value,option=KEY_ENUM.NONE) => {
+
+const validateForm = () => {};
+
+const sortBy = (
+  players,
+  sort_value = KEY_ENUM.NONE,
+  reverse = REVERSE_ENUM.FALSE
+) => {
+  const option = sort_value;
+  let sortedRoster = [...players];
+  if (sort_value !== KEY_ENUM.NONE) {
+    sortedRoster = players.sort((a, b) =>
+      a[Object.keys(a)[option]] > b[Object.keys(b)[option]]
+        ? 1
+        : b[Object.keys(b)[option]] > a[Object.keys(a)[option]]
+        ? -1
+        : 0
+    );
+  }
+  if (reverse) return sortedRoster.reverse();
+  return sortedRoster;
+};
+
+const filterBy = (players, value, option = KEY_ENUM.NONE) => {
   let predicate = String(value).toLowerCase();
-  let filteredRoster = [...players]
-  if(option!==KEY_ENUM.NONE){
-       filteredRoster = players.filter(player => String(player[Object.keys(player)[option]]).toLowerCase().includes(predicate));
+  let filteredRoster = [...players];
+  if (option !== KEY_ENUM.NONE) {
+    filteredRoster = players.filter((player) =>
+      String(player[Object.keys(player)[option]])
+        .toLowerCase()
+        .includes(predicate)
+    );
   }
   return filteredRoster;
-}
+};
 
+const ttp1 = {id:6811,name:"TestTubePoopies#1",breed:"Pomsky",status:"field",imageUrl:"https://i0.wp.com/petradioshow.com/wp-content/uploads/2020/02/mya2.jpg?resize=396%2C484&ssl=1",createdAt:"2023-06-03T04:17:02.720Z",updatedAt:"2023-06-03T04:17:02.720Z",teamId:420,cohortId:221};
+const ttp2 = {id:6811,name:"TestTubePoopies#2",breed:"Pomsky",status:"field",imageUrl:"https://metro.co.uk/wp-content/uploads/2016/06/pomsky-fox.jpg?quality=90&strip=all",createdAt:"2023-06-03T04:17:02.720Z",updatedAt:"2023-06-03T04:17:02.720Z",teamId:420,cohortId:221};
+const img1 = "https://i0.wp.com/petradioshow.com/wp-content/uploads/2020/02/mya2.jpg?resize=396%2C484&ssl=1";
 await updateRoster();
 const init = async () => {
+
+ // for(let i=0; i<10; i++){
+   // let poopy = generateCutePoopies(9000,`TestTubePoopies#${i+3}`,"pomsky","field",img1,new Date().toISOString(),'',TEAM_ID,COHORT_ID);
+   // await addNewPlayer(poopy);
+ // }
+
   generateSelectSort();
-  generateSelectFilter()
+  generateSelectFilter();
   const players = getRoster();
   renderAllPlayers(players);
   renderNewPlayerForm();
-};
+  deleteButton.addEventListener('click', async (e) => {
+    e.preventDefault();
+    const playerID = e.target.previousSibling.previousSibling.value;
+    deletePlayer(playerID);
+})};
 const generateSelectSort = () => {
-  const selectMenu = document.createElement('select');
-  selectMenu.classList.add('select-sort,options-sort');
-  selectMenu.setAttribute('name','sorting')
-  const options =`
+  const selectMenu = document.createElement("select");
+  selectMenu.classList.add("select-sort,options-sort");
+  selectMenu.setAttribute("name", "sorting");
+  const options = `
   <option value="ID">ID</option>
   <option value="NAME">Name</option>
   <option value="BREED">Breed</option>
@@ -233,35 +338,23 @@ const generateSelectSort = () => {
   <option value="UPDATE">Updated</option>
   <option value="TEAM">Team ID</option>
   <option value="COHORT">Cohort ID</option>
-  `
-  selectMenu.innerHTML = options
-  selectMenu.addEventListener("change",(e)=>{
+  `;
+  selectMenu.innerHTML = options;
+  selectMenu.addEventListener("change", (e) => {
     const selectElement = e.target;
-    console.log(selectElement);
     const sortOp = selectElement.value;
-    const sortedplayers = sortBy(getRoster(),KEY_ENUM[sortOp]);
-    console.log(sortedplayers);
-    document.getElementById('all-players-container').innerHTML='';
-    renderAllPlayers(sortedplayers);
-  })
-  /*
-  const selectButton = document.createElement('button');
-  selectButton.classList.add('select-sort');
-  selectButton.setAttribute('id', 'button-sort');
-  selectButton.innerHTML="<i class='fas fa-arrow-up-right-dots'></i>";
-  selectButton.addEventListener('click', (e)=>{
-
-  })
-  */
- const container = document.getElementsByClassName('select-sort');
- container[0].appendChild(selectMenu);
-}
+    const sortedplayers = sortBy(getRoster(), KEY_ENUM[sortOp]);
+    update(sortedplayers);
+  });
+  const container = document.getElementsByClassName("select-sort");
+  container[0].appendChild(selectMenu);
+};
 
 const generateSelectFilter = () => {
-  const filterMenu = document.createElement('select');
-  filterMenu.classList.add('select-filter','options-filter');
-  filterMenu.setAttribute('name','filtering')
-  const options =`
+  const filterMenu = document.createElement("select");
+  filterMenu.classList.add("select-filter", "options-filter");
+  filterMenu.setAttribute("name", "filtering");
+  const options = `
   <option value="ID">ID</option>
   <option value="NAME">Name</option>
   <option value="BREED">Breed</option>
@@ -270,38 +363,35 @@ const generateSelectFilter = () => {
   <option value="UPDATE">Updated</option>
   <option value="TEAM">Team ID</option>
   <option value="COHORT">Cohort ID</option>
-  `
-  filterMenu.innerHTML = options
-  
-  const filterInput = document.createElement('input');
-  filterInput.classList.add('select-filter');
-  filterInput.setAttribute('id','input-filter')
+  `;
+  filterMenu.innerHTML = options;
 
-  const filterButton = document.createElement('button');
-  filterButton.classList.add('select-filter');
-  filterButton.setAttribute('id', 'button-filter');
-  filterButton.innerHTML="filter";
-    filterButton.addEventListener("click", (e)=>{    
+  const filterInput = document.createElement("input");
+  filterInput.classList.add("select-filter");
+  filterInput.setAttribute("id", "input-filter");
+
+  const filterButton = document.createElement("button");
+  filterButton.classList.add("select-filter");
+  filterButton.setAttribute("id", "button-filter");
+  filterButton.innerHTML = "Apply";
+  filterButton.addEventListener("click", (e) => {
     const fInput = e.target.previousSibling;
     const predicate = fInput.value;
     const fMenu = fInput.previousSibling;
-    const filterOp = fMenu.value;    
-    const filteredplayers = filterBy(getRoster(),predicate,KEY_ENUM[filterOp]);
-    console.log(filteredplayers);
-    document.getElementById('all-players-container').innerHTML='';
-    renderAllPlayers(filteredplayers);
-  })
-  
-  
-  filterMenu.addEventListener("change",(e)=>{
-    const filterElement = e.target;
-    console.log(filterElement);
-  })
- const container = document.getElementsByClassName('select-filter');
- container[0].appendChild(filterMenu);
- container[0].appendChild(filterInput);
- container[0].appendChild(filterButton);
-}
+    const filterOp = fMenu.value;
+    const filteredplayers = filterBy(
+      getRoster(),
+      predicate,
+      KEY_ENUM[filterOp]
+    );
+    update(filteredplayers);
+  });
+
+  const container = document.getElementsByClassName("select-filter");
+  container[0].appendChild(filterMenu);
+  container[0].appendChild(filterInput);
+  container[0].appendChild(filterButton);
+};
 
 const generatePlayerForm = () => {
   return `
@@ -325,12 +415,12 @@ const generatePlayerForm = () => {
       <td><input type="text" name="team-id"></td>
     </tr>
     <tr>
-      <td>Choose a profile picture:</td>
+      <td>Choose a profile picture:<img src="" height="200" alt="Image preview" /></td>
     </tr>
     <tr>
       <td>*supported ext: .jpeg .png</td>
       <td><input type="file" id="avatar" name="avatar"
-        accept="image/png, image/jpeg"></td>
+        accept="image/png, image/jpeg, image/jpg"></td>
     </tr>
     <tr>
       <td></td>
@@ -338,27 +428,46 @@ const generatePlayerForm = () => {
     </tr>
   </table>
 </form>`;
-}
-const generateCutePoopies = (_id, _name, _breed,_status,_imageUrl,_createdAt,_updatedAt) =>{
-  return {id:_id,
-          name:_name,
-          breed:_breed,
-          status:_status,
-          imageUrl:_imageUrl,
-          createdAt:_createdAt,
-          updatedAt:_updatedAt,
-          teamId:TEAM_ID,
-          cohortId:COHORT_ID}
 };
 
-function randomNumber(range=1){return Math.floor(Math.random()*range)};
-  const generateRandomPlayer = () => {
-    const prefixedID = Number('113'+ randomNumber(9999));
-    const name = "PatsTestTubePoopies#2";
-    const breed = "Pomsky"
-    const url = "https://s.hdnux.com/photos/46/70/11/10191479/4/1200x0.jpg";
-    const date = new Date().toISOString();
-    return generateCutePoopies(prefixedID,name,breed,'field',url,date,'');
+const generateTeam = (teamId, teamName, players) =>{
+  const team = {
+    id: teamId,
+    name: teamName,
+    score: 10,
+    createdAt: new Date().toISOString,
+    updatedAt: "",
+    cohortId: 221,
+    players: players
+  }
+  return team;
+};
+
+const generateCutePoopies = (...val) => {
+  return {
+    id: val[0],
+    name: val[1],
+    breed: val[2],
+    status: val[3],
+    imageUrl: val[4],
+    createdAt: val[5],
+    updatedAt: val[6],
+    teamId: val[7],
+    cohortId: val[8],
+  };
+};
+
+const generateRandomPlayer = () => {
+  const prefixedID = Number("113" + randomNumber(9999));
+  const name = "PatsTestTubePoopies#2";
+  const breed = "Pomsky";
+  const url = "https://s.hdnux.com/photos/46/70/11/10191479/4/1200x0.jpg";
+  const date = new Date().toISOString();
+  return generateCutePoopies(prefixedID, name, breed, "field", url, date, "");
+};
+
+function randomNumber(range = 1) {
+  return Math.floor(Math.random() * range);
 }
 init();
 /**

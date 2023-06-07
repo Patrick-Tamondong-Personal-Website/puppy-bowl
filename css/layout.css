@@ -1,0 +1,27 @@
+.page{
+  height: 100vh;
+  border: 1px solid black;
+}
+
+.select{
+    display: flex;
+}
+
+#all-players-container,
+.page-form{
+    max-width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1em;
+    align-items: center;
+    justify-content: center;
+  }
+
+.page-form{
+  display: grid;
+  grid-template-rows: .2fr .8fr;
+}
+
+.page-form > *{
+  transform: scale(1.5);  
+}
