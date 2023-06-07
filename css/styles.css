@@ -22,3 +22,15 @@ h1{
     
     width: 100vw;
 }
+
+.section-content{
+    margin: 0 1em 0 1em;
+}
+
+.select{
+    margin: .25em 0 .5em .75em;
+}
+
+.select > *{
+    margin-left: .25em;
+}

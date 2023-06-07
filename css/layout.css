@@ -1,5 +1,14 @@
+.page{
+  height: 100vh;
+  border: 1px solid black;
+}
 
-#all-players-container{
+.select{
+    display: flex;
+}
+
+#all-players-container,
+.page-form{
     max-width: 100%;
     display: flex;
     flex-wrap: wrap;
@@ -8,10 +17,11 @@
     justify-content: center;
   }
 
-
-.page{
-  height: 100vh;
+.page-form{
+  display: grid;
+  grid-template-rows: .2fr .8fr;
 }
-.select{
-    display: flex;
+
+.page-form > *{
+  transform: scale(1.5);  
 }
