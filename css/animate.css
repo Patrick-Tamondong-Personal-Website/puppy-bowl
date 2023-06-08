@@ -1,0 +1,20 @@
+.carousel{
+
+}
+
+.carousel-btn:hover{
+    background-color: var(--decorate-car-btn-hvr);
+    transform: scale(.97);
+}
+
+
+.carousel-btn-lft{
+/* 
+*/
+
+}
+.carousel-btn-rt{
+/* 
+*/
+
+}

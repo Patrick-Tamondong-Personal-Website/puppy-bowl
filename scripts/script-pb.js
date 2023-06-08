@@ -304,20 +304,23 @@ const filterBy = (players, value, option = KEY_ENUM.NONE) => {
   return filteredRoster;
 };
 
+const getDetails = () => {}
+const updateDetails = () => {}
+
 const ttp1 = {id:6811,name:"TestTubePoopies#1",breed:"Pomsky",status:"field",imageUrl:"https://i0.wp.com/petradioshow.com/wp-content/uploads/2020/02/mya2.jpg?resize=396%2C484&ssl=1",createdAt:"2023-06-03T04:17:02.720Z",updatedAt:"2023-06-03T04:17:02.720Z",teamId:420,cohortId:221};
 const ttp2 = {id:6811,name:"TestTubePoopies#2",breed:"Pomsky",status:"field",imageUrl:"https://metro.co.uk/wp-content/uploads/2016/06/pomsky-fox.jpg?quality=90&strip=all",createdAt:"2023-06-03T04:17:02.720Z",updatedAt:"2023-06-03T04:17:02.720Z",teamId:420,cohortId:221};
 const img1 = "https://i0.wp.com/petradioshow.com/wp-content/uploads/2020/02/mya2.jpg?resize=396%2C484&ssl=1";
 await updateRoster();
 const init = async () => {
-
- // for(let i=0; i<10; i++){
+  generateSelectSort();
+  generateSelectFilter();
+  const players = getRoster();
+  //const ttpClones = (players.length +10);
+ // for(let i=players.length; i<ttpClones; i++){
    // let poopy = generateCutePoopies(9000,`TestTubePoopies#${i+3}`,"pomsky","field",img1,new Date().toISOString(),'',TEAM_ID,COHORT_ID);
    // await addNewPlayer(poopy);
  // }
 
-  generateSelectSort();
-  generateSelectFilter();
-  const players = getRoster();
   renderAllPlayers(players);
   renderNewPlayerForm();
   deleteButton.addEventListener('click', async (e) => {

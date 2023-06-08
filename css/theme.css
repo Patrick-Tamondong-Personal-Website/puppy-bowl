@@ -6,12 +6,59 @@ Color palette
 239, 244, 108
 71, 106, 111
 */
+:root{
+    --primary:rgba(255,238,189,1);
+    --secondary:rgba(255,160,61,1);
+    --accent:rgba(135, 64, 0,1);
+    --decorate-one:rgba(239,244,108,1);
+    --decorate-li-one:rgba(71,106,111,1);
+    --decorate-car-btn:rgba(185, 185, 185, 0.7);
+    --decorate-car-btn-hvr:rgba(238, 238, 238, 0.654);
+    
+    --shadow-small:.1em .1em .1em .1em rgba(0, 0, 0, 0.282);
+}
 
 body{
-    background-color: rgba(255,238,189,1);
-    color: rgba(255,160,61,1);
+    background-color:var(--accent);
+
 }
-.section{
-    background-color: rgba(255,160,61,1);
-    color: rgba(255,238,189,1);
+
+.body-wrapper{
+    background-color: var(--primary);
+    color: var(--secondary);
+}
+
+nav{
+    background-color: var(--decorate-one);
+}
+
+.page-section{
+    background-color: var(--secondary);
+    color: var(--primary);
+}
+
+.player-select{
+    background-color: var(--secondary);
+    color: var(--primary);
+}
+
+.carousel-btn{
+    background-color: var(--decorate-car-btn);
+}
+
+.player-display h1{
+    background-color: var(--secondary);
+    color: var(--primary);
+}
+.display-aside-outer{
+    background-color: var(--accent);
+}
+.display-aside-inner{
+    background-color: var(--decorate-car-btn);
+}
+.display-window{
+    background-color: var(--secondary);
+}
+.details-content{
+    background-color: var(--primary);
 }

@@ -1,36 +1,152 @@
+/**/
 *{
-    *{
-        padding: 0;
-        margin: 0;
-        box-sizing: border-box;
-      }
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body{
+    
+}
+
+div{
+    pad: 0;
+    margin: 0;
+}
+nav{
+    padding: 2em;
+    margin: 0; 
+
 }
 
 h1{
     text-align: center;
+    padding: 0;
+    margin: 0;
 }
 
-.banner {
+/**/
+.page-banner {
     background-repeat: no-repeat;
     background-size:cover;
-    height: auto;
     margin: 0;
-    max-width: 100%;
+    width: auto;
 }
 
-.banner img{
+.page-banner img{
     
-    width: 100vw;
+  max-height: 100vh;
+  width:100%;
+}
+/**/
+.content-section{
+    padding: 0 1em 1em 1em;
+}
+/**/
+.player-select{
+  padding: .25em;
 }
 
-.section-content{
-    margin: 0 1em 0 1em;
-}
-
-.select{
-    margin: .25em 0 .5em .75em;
-}
-
-.select > *{
+.player-select > *{
     margin-left: .25em;
+}
+.select-header{
+    width: 50%;
+    padding-left: 10vw;
+
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+}
+.select-header h2{
+    margin: 0;
+    font-size: 2em;
+}
+/**/
+.carousel{
+    justify-content: space-between;
+    
+}
+.carousel-container{
+    padding-top: 1em;
+    padding-bottom: 1em;
+}
+.carousel button{
+    min-width: 5em;
+    max-width: 5em;
+    height:100%;
+    border: none;
+
+    /*For child elements*/
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.carousel-btn i{
+    transform: scale(4);
+    color: rgba(0, 0, 0, 0.1);
+}
+/*
+classes:
+player-display
+    player-display-wrapper
+        display-aside
+        display-window, details-window
+        details-content, content
+*/
+.player-display{
+    
+}
+.display-header{
+
+    box-shadow: 1em 0 1em .1em rgba(0, 0, 0, 0.122);
+}
+
+.display-header h1{
+    padding: 0;
+    margin: 0;
+    height: 100%;
+}
+
+.player-display-wrapper{
+    height: 100%;
+}
+.display-aside-wrapper{
+    height: 100%;
+    min-width: 200px;
+ 
+}
+.display-aside-outer{
+    box-shadow:.1em .1em .1em .1em rgba(0, 0, 0, 0.222);
+
+}
+.display-aside-inner{
+    box-shadow:.2em .1em .1em .1em rgba(0, 0, 0, 0.222);
+
+}
+
+.display-window{
+    padding:1.1em;
+    border: .2em solid var(--accent);
+}
+.details-content{
+    height: 100%;
+    border: .2em solid var(--accent);
+    padding: .9em;
+}
+.details-content-pane-right{
+    border-left: 1px solid var(--accent);
+}
+.details-content-list{
+    
+}
+.content-player-avatar{
+ border: .3em solid var(--accent);
+ width: 90%;
+ margin-left: 7.5%;
+
+}
+.content-player-description{
+    padding: 1em;
 }
