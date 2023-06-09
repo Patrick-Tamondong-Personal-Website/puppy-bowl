@@ -37,6 +37,15 @@ nav{
     color: var(--primary);
 }
 
+.content-ul-li{
+  background-color: var(--decorate-li-one);
+  }
+
+.content-li-p{
+    background-color: var(--primary);
+    color: var(--decorate-li-one);
+}
+
 .player-select{
     background-color: var(--secondary);
     color: var(--primary);
