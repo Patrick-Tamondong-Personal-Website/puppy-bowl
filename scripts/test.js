@@ -1,3 +1,23 @@
+
+
+
+let width = window.innerWidth;
+console.log(`The width of the browser window is: ${width}px`);
+
+const style = getComputedStyle(document.body);
+const eW = parseFloat(style.width)
+            +parseFloat(style.marginLeft);
+            +parseFloat(style.marginRight);
+
+console.log(`The effective width of the browser window is: ${eW}px`);
+
+
+
+
+
+
+
+
 /*{
   "id": 375,
   "name": "Ruff",

@@ -1,0 +1,91 @@
+classes by order of appearance
+
+div-page page-banner
+  
+div-page page-section
+    content section-content
+        content-article
+            article-ul
+
+nav
+
+div-page page-player
+    player-select
+        player-select select-sort
+        player-select select-filter
+
+    player-wrapper carousel player-carousel
+        carousel carousel-btn carousel-btn-lft
+            fas fa-angle-left
+        player-container carousel-container
+        carousel carousel-btn carousel-btn-rt
+            fas fa-angle-right
+    player-display
+        display-window
+        
+div-page page-form
+    form-player-add
+    form-player-delete
+
+////////////////
+Carousel logic
+
+Effective width 
+Ew = Width of page - (cumulative margin+padding)
+
+Number of cards to display/select 
+sCards= Ew/Cardwidth 
+
+
+Selected cards are focused
+.active toggle
+Unselected cards are blurred
+
+Cards=document.getElementsByClass("player-card")
+
+Cards is array of nodes may need node list
+
+Cards display on a single row
+Display flex 
+flex no wrap
+
+When carousel direction clicked the starting and ending index should shift by one
+
+Initial index
+ x1, x2 = 0 , sCards.length - 1
+
+Btn-lt   (x1,x2)--
+Btn-rt   (x1,x2)++
+
+ a = active el. ; b = blurred element ; h = hidden
+        |aaaaa|bhhhh
+      b|aaaaa|bhhh    //btn-rt clicked
+    hb|aaaaa|bhh     //btn-rt clicked
+      b|aaaaa|bhhh    //btn-lt clicked
+        |aaaaa|bhhhh //btn-lt clicked
+
+hidden indexes
+Start = z1
+ z1 = x1 - 2
+If x1 - 2 < 0 then no-op
+
+End = z2
+ z2 = sCards.length+1
+	If z2 - sCards.length <= 1 then no-op
+    hhb|aaaaa|b   b is last el
+
+If index >= x1 && index <= x2 then active
+If index <=z1 && index >= z2 then hidden
+Else blurred
+
+
+//Problem one - method to move 
+//elements on the screen?
+//Absolute, relative, other property?
+
+//Second problem updating the display with
+//elements in new position?
+//Clear container, repopulate with //constraints?
+
+//trivial problems effects, decorations, layout
+
