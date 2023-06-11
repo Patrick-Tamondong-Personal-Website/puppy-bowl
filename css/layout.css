@@ -45,6 +45,17 @@ body{
   grid-auto-flow: column;
   
 }
+
+.carousel-container{
+  max-width: 100%;
+  display: flex;
+  flex-wrap: nowrap;
+  overflow: hidden;
+  gap: 1em;
+  align-items: center;
+  justify-content: center;
+  padding-bottom: .5em;
+}
 /*
 classes:
 player-display
@@ -100,7 +111,6 @@ player-display
   width: 100%;
 }
 
-#all-players-container,
 .page-form{
     max-width: 100%;
     display: flex;
