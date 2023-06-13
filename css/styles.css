@@ -10,13 +10,13 @@ body{
 }
 
 div{
-    pad: 0;
+    padding: 0;
     margin: 0;
 }
 nav{
     padding: 2em;
     margin: 0; 
-    box-shadow:inset 0 0 .3em .4em rgba(255, 255, 255, 0.2);
+    box-shadow:inset 0 0 3em .9em rgba(0, 0, 0, 0.2);
 }
 
 h1{
@@ -26,34 +26,35 @@ h1{
     font-size: 2.5em;
 }
 
+.div-page{
+    border-bottom: 1px solid black;
+}
 /*Banner*/
 .page-banner {
-    background-repeat: no-repeat;
-    background-size:cover;
+    background-image: url("https://img.freepik.com/premium-photo/seven-dog-portraits-front-natural-colors_748076-376.jpg?w=1380");
+    background-size:fill;
+    background-repeat:round;
     margin: 0;
-    width: auto;
+   
 }
 
 .page-banner img{
     
   max-height: 100vh;
-  width:100%;
+  width: calc(100vw - 15px);
+  padding: 0;
+  margin: 0;
 }
 /*Content*/
-.content-section{
-    padding: 0 1em 1em 1em;
-
-
-}
-
 .section-content{
     row-gap: 1em;
-    padding-left: 3em;
-    padding-right: 3em;
+    padding: 0 3em 3em 3em;
+
+    box-shadow:inset 0 0 3em .9em rgba(0, 0, 0, 0.2);
 }
 
 .content-article{
-    padding: 0 1.5em 2em 1.5em;
+    padding: 0 1.5em 1em 1.5em;
 }
 
 .content-ul-li{
@@ -110,12 +111,14 @@ h1{
     display: flex;
     flex-wrap: nowrap;
     align-items: center;
-
     
 }
 .select-header h2{
     margin: 0;
     font-size: 2em;
+}
+.toggle-icon{
+    transform: scale(1.5);
 }
 /*Player container*/
 .carousel{
@@ -125,18 +128,32 @@ h1{
 .carousel-container{
     padding-top: 1em;
     padding-bottom: 1em;
+    box-shadow:inset 0 0 3em .8em rgba(0, 0, 0, 0.397);
 }
+.carousel-btn-wrapper{
+    box-shadow:inset 0 0 3em .8em rgba(0, 0, 0, 0.397);
+}
+.btn-wrapper-lt{
+    padding-right: 1em;
+}
+
+.btn-wrapper-rt{
+    padding-left: 1em;
+}
+
 .carousel button{
     min-width: 5em;
     max-width: 5em;
     height:100%;
     border: none;
+    box-shadow:inset 0 0 2em 1.5em rgba(97, 97, 97, 0.27);
 
     /*For child elements*/
     display: flex;
     justify-content: center;
     align-items: center;
 }
+
 
 .carousel-btn i{
     transform: scale(4);
@@ -167,19 +184,20 @@ player-display
 
 .player-display-wrapper{
     height: 100%;
+    
 }
 .display-aside-wrapper{
     height: 100%;
     min-width: 200px;
-    box-shadow:inset 0 0 .3em .4em rgba(0, 0, 0, 0.2);
+    box-shadow:inset 0 0 1em .8em rgba(0, 0, 0, 0.2);
  
 }
 .display-aside-outer{
-    box-shadow:.1em .1em .1em .1em rgba(0, 0, 0, 0.222);
+    box-shadow:inset 0 0 1em 1em rgba(0, 0, 0, 0.222);
 
 }
 .display-aside-inner{
-    box-shadow:.2em .1em .1em .1em rgba(0, 0, 0, 0.222);
+    box-shadow:.1em .1em .1em .1em rgba(0, 0, 0, 0.222);
 
 }
 
@@ -216,3 +234,18 @@ player-display
     padding-left: .5em;
 }
 /*Form*/
+.page-form{
+    box-shadow:inset 0 0 5em 2em rgba(97, 97, 97, 0.356);
+    padding: 2em 0 0 0;
+    display: grid;
+    grid-template-rows: .2fr .8fr;
+}
+.form-container{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    gap: 1em;
+    align-items: center;
+    
+    padding-bottom: .5em;
+}

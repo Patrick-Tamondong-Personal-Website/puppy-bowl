@@ -310,16 +310,16 @@ const updateDetailPane = (player) => {
 
 //const ttp1 = {id:6811,name:"TestTubePoopies#1",breed:"Pomsky",status:"field",imageUrl:"https://i0.wp.com/petradioshow.com/wp-content/uploads/2020/02/mya2.jpg?resize=396%2C484&ssl=1",createdAt:"2023-06-03T04:17:02.720Z",updatedAt:"2023-06-03T04:17:02.720Z",teamId:420,cohortId:221};
 //const ttp2 = {id:6811,name:"TestTubePoopies#2",breed:"Pomsky",status:"field",imageUrl:"https://metro.co.uk/wp-content/uploads/2016/06/pomsky-fox.jpg?quality=90&strip=all",createdAt:"2023-06-03T04:17:02.720Z",updatedAt:"2023-06-03T04:17:02.720Z",teamId:420,cohortId:221};
-//const img1 = "https://i0.wp.com/petradioshow.com/wp-content/uploads/2020/02/mya2.jpg?resize=396%2C484&ssl=1";
+const img1 = "https://i0.wp.com/petradioshow.com/wp-content/uploads/2020/02/mya2.jpg?resize=396%2C484&ssl=1";
 await updateRoster();
 const init = async () => {
   generateSelectSort();
   generateSelectFilter();
   const players = getRoster();
-  //const ttpClones = (players.length +10);
+  //const ttpClones = (players.length +20);
   //for(let i=players.length; i<ttpClones; i++){
-  // let poopy = generateCutePoopies(9000,`TestTubePoopies#${i+3}`,"pomsky","field",img1,new Date().toISOString(),'',TEAM_ID,COHORT_ID);
-  // await addNewPlayer(poopy);
+  //let poopy = generateCutePoopies(9000,`TestTubePoopies#${i+3}`,"pomsky","field",img1,new Date().toISOString(),'',TEAM_ID,COHORT_ID);
+  //wait addNewPlayer(poopy);
   //}
 
   renderAllPlayers(players);
@@ -370,11 +370,27 @@ const init = async () => {
   console.log(postActiveCards);
 
   const updateCarousel = (x1,x2) => {
+    console.log('Elements:');
+  console.log(carouselButtonRt);
+  console.log(carouselButtonLt);
+  console.log(carouselContainer);
+  console.log(styleCContainer);
+  console.log(eWContainer);
+  console.log(playerCards);
+  console.log(cardStyle);
+  console.log(eWCard);
+  console.log('Calc:');
+  console.log(gapWidth);
+  console.log(cumulativeGapW);
+  console.log("pre Number of displayable cards: " + numActiveCards);
+  console.log(postActiveCards);
     const activeCards = [...getRoster()].slice(x1,x2);
     update(activeCards);
   }
 
   carouselButtonLt.addEventListener('click', ()=>{
+  console.log(x1);
+  console.log(x2);
     if(x1>0){
     x1--;
     x2--;
@@ -382,12 +398,27 @@ const init = async () => {
     }
   })
   carouselButtonRt.addEventListener('click', ()=>{
+    console.log(x1);
+    console.log(x2);
     if(x2<getRoster().length){
     x1++;
     x2++;
     updateCarousel(x1,x2);
     }
+  });
+
+  const toggleButton = document.getElementsByClassName('player-card-toggle')[0];
+  console.log(toggleButton);
+
+  toggleButton.addEventListener('click', ()=>{
+    console.log('Toggle click');
+    
+    carouselContainer[0].classList.toggle("active");
+    toggleButton.children[1].classList.toggle("fa-toggle-off");
+    toggleButton.children[1].classList.toggle("fa-toggle-on");
+    update(getRoster());
   })
+
 
 };
 const generateSelectSort = () => {
