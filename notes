@@ -1,31 +1,51 @@
-classes by order of appearance
+html class,id structure
 
-div-page page-banner
-  
-div-page page-section
-    content section-content
-        content-article
-            article-ul
+body-wrapper
 
-nav
+    div-page page-banner
+    
+    div-page page-section
+        content section-content
+            content-article
+                article-ul
+                    content-ul-li
+                        content-li-header
+                        content-li-seperator
+                        content-li-p
+    div-header
 
-div-page page-player
-    player-select
-        player-select select-sort
-        player-select select-filter
+    div-page page-player
+        player-select
+            player-select select-sort
+            player-select select-filter
 
-    player-wrapper carousel player-carousel
-        carousel carousel-btn carousel-btn-lft
-            fas fa-angle-left
-        player-container carousel-container
-        carousel carousel-btn carousel-btn-rt
-            fas fa-angle-right
-    player-display
-        display-window
-        
-div-page page-form
-    form-player-add
-    form-player-delete
+        player-wrapper carousel player-carousel
+            carousel carousel-btn carousel-btn-lft
+                fas fa-angle-left
+            player-container carousel-container
+            carousel carousel-btn carousel-btn-rt
+                fas fa-angle-right
+        player-display
+            div-header display-header
+            player-display-wrapper
+            aside aside-start display-aside-wrapper
+                display-aside-outer
+                display-aside-inner
+            display-window details-window
+                details-content content
+                    details-content-pane-left
+                        div-header details-headers
+                        details-content-list
+                details-content-pane-right
+                    content-player-avatar
+                    content-player-description
+            aside aside-end display-aside-wrapper
+                display-aside-inner
+                display-aside-outer
+            
+    div-page page-form
+        form-player-add
+        form-player-delete
 
 ////////////////
 Carousel logic
@@ -86,6 +106,7 @@ Else blurred
 //Second problem updating the display with
 //elements in new position?
 //Clear container, repopulate with //constraints?
+yes clearing container and repopulating with a sliced array works
 
 //trivial problems effects, decorations, layout
 

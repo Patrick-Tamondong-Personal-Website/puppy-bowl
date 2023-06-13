@@ -1,6 +1,8 @@
 body{
   max-width: 3840px;
-
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .body-wrapper{
   max-width: calc(100vw - 10px);
@@ -8,12 +10,15 @@ body{
 
 }
 .div-page{
-  height: auto;
   /*
+  height: auto;
   width: 100vw;
   */
   min-width: 550px;
-  border: 1px solid black;
+}
+.div-page.page-banner{
+  width: 100%;
+  min-height: 100vh;
 }
 .div-header{
   z-index: 3;
@@ -38,15 +43,38 @@ body{
 
 .player-select{
   display: flex;
+  flex-wrap: wrap;
+}
+
+.carousel{
+  min-height: 400px;
 }
 
 .player-wrapper.carousel{
   display: grid;
-  grid-auto-flow: column;
+  grid-template-columns: auto 1fr auto;
   
 }
+.carousel-btn-wrapper{
+  width:100%;
+}
 
+.btn-wrapper-rt{
+  display: flex;
+  justify-content: end
+
+}
 .carousel-container{
+  max-width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1em;
+  align-items: center;
+  justify-content: center;
+  padding-bottom: .5em;
+}
+
+.carousel-container.active{
   max-width: 100%;
   display: flex;
   flex-wrap: nowrap;
@@ -65,13 +93,13 @@ player-display
         details-content, content
 */
 .player-display{
-  min-height: 550px;   
   border: 1px solid black;
-
+  
   display: grid;
   grid-template-rows: .1fr .9fr;
 }
 .player-display-wrapper{
+  min-height: 500px;
   display: grid;
   grid-template-columns: .2fr .6fr .2fr;
 }
@@ -113,22 +141,8 @@ player-display
 
 .page-form{
     max-width: 100%;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1em;
-    align-items: center;
-    justify-content: center;
-    padding-bottom: .5em;
+    height: 100vh;
   }
 
-.page-form{
-  display: grid;
-  grid-template-rows: .2fr .8fr;
-  height: 70vh;
-}
 
-.page-form > *{
-  /*
-  transform: scale(1.5);  
-  */
-}
+

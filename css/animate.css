@@ -4,7 +4,9 @@
 
 .carousel-btn:hover{
     background-color: var(--decorate-car-btn-hvr);
-    transform: scale(.97);
+    transform: scalex(.97);
+    box-shadow:inset 0 0 2em 1.5em rgba(0, 0, 0, 0.27);
+
 }
 
 
