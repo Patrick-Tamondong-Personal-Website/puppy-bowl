@@ -9,13 +9,23 @@ Color palette
 :root{
     --primary:rgba(255,238,189,1);
     --secondary:rgba(255,160,61,1);
+    --secondary-lite:rgb(255, 188, 81);
     --accent:rgba(135, 64, 0,1);
-    --decorate-one:rgba(239,244,108,1);
+    --decorate-one:rgb(225, 229, 102);
     --decorate-li-one:rgba(71,106,111,1);
     --decorate-car-btn:rgba(185, 185, 185, 0.5);
     --decorate-car-btn-hvr:rgba(238, 238, 238, 0.654);
-    
     --shadow-small:.1em .1em .1em .1em rgba(0, 0, 0, 0.282);
+
+    --max-body:3840px;
+    --body-width:95vw;
+    --seperator-height:30vh;
+    --nav-height:12vh;
+}
+html{
+    background: 
+    repeating-conic-gradient(rgb(87, 87, 87) 0% 25%, transparent 0% 50%) 
+      50% / 65px 65px
 }
 
 body{
@@ -32,6 +42,11 @@ nav{
     background-color: var(--decorate-one);
 }
 
+.div-seperator{
+    background-color: var(--secondary);
+    background:
+     linear-gradient(0deg, var(--secondary) 15%, var(--secondary-lite) 50%, var(--secondary) 85%);
+}
 .page-section{
     background-color: var(--secondary);
     color: var(--primary);
@@ -45,7 +60,9 @@ nav{
     background-color: var(--primary);
     color: var(--decorate-li-one);
 }
-
+.nav-header{
+    color: var(--decorate-one);
+}
 .player-select{
     background-color: var(--secondary);
     color: var(--primary);
@@ -60,7 +77,7 @@ nav{
     color: var(--primary);
 }
 .display-aside-outer{
-    background-color: var(--accent);
+    background-color: rgb(209, 115, 33);
 }
 .display-aside-inner{
     background-color: var(--decorate-car-btn);

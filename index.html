@@ -34,16 +34,18 @@
           </br>
           <ul class="article-ul">
             <li>
+              <div class="wrapper-overlay li-wrapper-overlay"></div>
               <div class="content-ul-li">
                 <div class="content-li-header"><h2>The Boston Bulldogs</h2>
                 </div>
                 <div class="content-li-seperator">
                 </div>
-                <div class="content-li-p"><p>These feisty pups are known for their speed and agility. They have been training hard all year and are ready to take on the competition.</p>
-                </div>
+                <div class="content-li-p"><p>These scrappy dogs may be small, but they have big hearts. They have been practicing their teamwork and strategy and are ready to take on any challenge.</p>
               </div>
+            </div>
             </li>
             <li>
+              <div class="wrapper-overlay  li-wrapper-overlay"></div>
               <div class="content-ul-li">
                 <div class="content-li-header"><h2>The New York Pit Bulls</h2>
                 </div>
@@ -54,12 +56,13 @@
               </div>
             </li>
             <li>
-               <div class="content-ul-li">
+              <div class="wrapper-overlay  li-wrapper-overlay"></div>
+              <div class="content-ul-li">
                 <div class="content-li-header"><h2>The Philadelphia Terriers</h2>
                 </div>
                 <div class="content-li-seperator">
                 </div>
-                <div class="content-li-p"><p>These scrappy dogs may be small, but they have big hearts. They have been practicing their teamwork and strategy and are ready to take on any challenge.</p>
+                <div class="content-li-p"><p>These feisty pups are known for their speed and agility. They have been training hard all year and are ready to take on the competition.</p>
                 </div>
               </div>
             </li>
@@ -71,13 +74,23 @@
         <p>So mark your calendars for June 15th and come out to support these incredible dogs as they compete in the 4th Annual Dog Marathon. It's sure to be a day filled with excitement, energy, and lots of wagging tails! </p>
       </section>
     </div><!--Intro end-->
-
-    <div class="div-header">
+    <div class="div-seperator">
+      <div class="wrapper-overlay seperator-wrapper-overlay"></div>
+    </div>
+    <div class="title-header-margin title-header-margin-start"></div>
+    <div class="div-header title-header">
       <nav>
-        <h1>Puppy Bowl Grand Prix</h1>
+        <div class="wrapper-overlay header-wrapper-overlay"></div>
+        
+        <h1 class="nav-header">
+          <img class="img-flag img-flag-lt" src="./rsc/race-flag.png"/>
+          Puppy Bowl Grand Prix
+          <img class="img-flag img-flag-rt" src="./rsc/race-flag.png"/>
+        </h1>
       </nav>
     </div>
-
+    <div class="title-header-margin title-header-margin-end"></div>
+    
     <!--Player-->
     <div class="div-page page-player">
       <!--Display mods-->
@@ -133,8 +146,10 @@
         <div class="player-display-wrapper">
     
           <div class="aside aside-start display-aside-wrapper">
-            <div class="display-aside-outer"></div>
-            <div class="display-aside-inner"></div>
+            <div class="display-aside-outer display-aside-outer-lt">
+              <div class="wrapper-overlay aside-wrapper-overlay"></div>
+            </div>
+            <div class="display-aside-inner display-aside-inner-lt"></div>
           </div><!---->
 
           <div class="display-window details-window">
@@ -162,7 +177,9 @@
                 </div>
 
                 <div class="content-player-description">
-                  <h2>Desciption</h2>
+                  <div class="div-header details-header">
+                    <h2>Description</h2>
+                  </div>
                   <p>Woof woof. Woof woof.</p>
                 </div>
               </div><!--pane right end-->
@@ -171,26 +188,30 @@
           </div><!--display window end-->
 
           <div class="aside aside-end display-aside-wrapper">
-            <div class="display-aside-inner"></div>
-            <div class="display-aside-outer"></div>
+            <div class="display-aside-inner display-aside-inner-rt"></div>
+            <div class="display-aside-outer display-aside-outer-rt">
+              <div class="wrapper-overlay aside-wrapper-overlay"></div>
+            </div>
           </div>  
 
         </div><!--display wrapper end-->
 
       </div><!--player display end-->
     </div><!--player page end-->
-
+    <div class="div-seperator">
+      <div class="wrapper-overlay seperator-wrapper-overlay"></div>
+    </div>
     <!-- Page to add new players -->
     <div class="div-page page-form">
-      <div class="div-header">
+      <div class="div-header form-header">
         <h1> Enroll your poopies here:</h1>
       </div>
       <div class="form-container">
         <div class="form-player-add" id="new-player-form">
         </div>
 
-        <div class="div-header">
-          <h1> Un-enroll your poopies here:(But you're a monster if you do)</h1>
+        <div class="div-header form-header">
+          <h1> Un-enroll your poopies here<span>:(</span>But you're a monster if you do)</h1>
         </div>
 
         <div class="form-player-delete" id="remove-player-form">
