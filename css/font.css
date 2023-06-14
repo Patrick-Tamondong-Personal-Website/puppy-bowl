@@ -1,3 +1,11 @@
+@import url('https://fonts.cdnfonts.com/css/race-sport-free');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap');
 section{
-    font-size: 1.5em;
+    font-size: 2em;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 500;
+}
+
+.div-header{
+    font-family: 'Race Sport Free', sans-serif;
 }
