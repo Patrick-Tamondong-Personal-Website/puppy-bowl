@@ -21,6 +21,7 @@ nav {
 
 h1 {
   text-align: center;
+  
   padding: 0;
   margin: 0;
   font-size: 2em;
@@ -104,9 +105,8 @@ li {
 .content-li-seperator {
   width: 100%;
   height: 100%;
-  border-left: 100px solid transparent;
-  border-right: -50px solid transparent;
-  border-top: 70px solid var(--primary);
+  border-left:4em solid transparent;
+  border-top: 4em solid var(--primary);
 }
 
 .content-li-p {
@@ -153,24 +153,45 @@ li {
 }
 
 .player-select {
-  display: grid;
-  grid-template-columns: auto auto auto auto;
-  
+padding-left: .5em;
 }
-.player-select > * {
- 
-  margin-left: 0.25em;
+
+.select-sort{
+    
+
 }
+.options-sort{
+    width: 50%;
+}
+.select-filter{
+    width:auto ;
+}
+
+.select-filter-container{
+    display: grid;
+    grid-template-columns: .3fr .5fr .2fr;
+}
+.filter-el{
+    width:100%;
+}
+
 .select-header {
-  width: 50%;
-  padding-left: 20%;
+    position: relative;
+    display: flex;
+    place-content: center;
+    align-items: center;
+
 }
 .select-header h2 {
-  margin: 0;
-  font-size: 2em;
+    position: relative;
+    margin: 0;
+    font-size: 1.5em;
 }
-.toggle-icon {
-  transform: scale(1.5);
+.player-card-toggle{
+    position: absolute;
+    right:1%;
+    bottom: 20%;
+  transform: scale(1.15);
 }
 /*Player container*/
 .carousel {
@@ -216,15 +237,19 @@ Display Panel
   box-shadow: 0 0.1em 0.3em 0.1em rgba(0, 0, 0, 0.2);
 }
 .display-header {
-  box-shadow: inset 0 0 0.3em 0.2em rgba(0, 0, 0, 0.2);
+    position: relative;
+    display: flex;
+    
+    place-content: center;
+    box-shadow: inset 0 0 0.3em 0.2em rgba(0, 0, 0, 0.2);
 }
 
 .display-header h1 {
-  padding: 0;
+    position: relative;
+  padding: .2em;
   margin: 0;
   height: 100%;
-  box-shadow: inset 0 0 0.3em 0.2em rgba(0, 0, 0, 0.2),
-    0 0.1em 0.2em 0.1em rgba(0, 0, 0, 0.262);
+  width: max-content;
 }
 
 .player-display-wrapper {

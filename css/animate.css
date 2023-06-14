@@ -6,7 +6,7 @@
 
 }
 
-.fas:hover{
+.toggle-icon:hover{
     color: var(--decorate-car-btn-hvr);
  
 }

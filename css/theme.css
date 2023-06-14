@@ -23,12 +23,12 @@ Color palette
     --nav-height:12vh;
 }
 *{
-    em:10px;
+    
 }
 html{
     background: 
     repeating-conic-gradient(rgb(87, 87, 87) 0% 25%, transparent 0% 50%) 
-      50% / 65px 65px
+      50% / 50px 50px
 }
 
 body{
@@ -76,9 +76,15 @@ nav{
 }
 
 .player-display h1{
-    background-color: var(--secondary);
     color: var(--primary);
 }
+
+.display-header{
+    background-color: var(--secondary);
+    background:
+     linear-gradient(0deg, var(--secondary) 15%, var(--secondary-lite) 50%, var(--secondary) 85%);
+}
+
 .display-aside-outer{
     background-color: rgb(209, 115, 33);
 }
