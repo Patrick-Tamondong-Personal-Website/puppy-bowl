@@ -22,6 +22,9 @@ Color palette
     --seperator-height:30vh;
     --nav-height:12vh;
 }
+*{
+    em:10px;
+}
 html{
     background: 
     repeating-conic-gradient(rgb(87, 87, 87) 0% 25%, transparent 0% 50%) 
