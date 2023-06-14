@@ -334,11 +334,11 @@ const init = async () => {
   const carouselButtonRt = document.getElementsByClassName('carousel-btn-rt')[0];
   const carouselButtonLt = document.getElementsByClassName('carousel-btn-lft')[0];
   const carouselContainer= document.getElementsByClassName('carousel-container')
-  const styleCContainer = getComputedStyle(document.body);
-  const eWContainer = parseFloat(styleCContainer.width);
-                    +parseFloat(styleCContainer.marginLeft);
+  const styleCContainer = getComputedStyle(carouselContainer[0]);
+  const eWContainer = parseFloat(styleCContainer.width)
+                    +parseFloat(styleCContainer.marginLeft)
                     +parseFloat(styleCContainer.marginRight);
-                    -parseFloat(styleCContainer.gap)
+                    
   const playerCards = playerContainer.children
   const cardStyle = getComputedStyle(playerCards[0])
   const eWCard = parseFloat(cardStyle.width)
@@ -350,7 +350,7 @@ const init = async () => {
   const w2 = playerCards[1].offsetLeft
   const gapWidth = w2-w1;    
   const cumulativeGapW = gapWidth*(numActiveCards-1);
-  const postContainerWidth = eWContainer-cumulativeGapW-(carouselButtonLt.offsetWidth*2)
+  const postContainerWidth = eWContainer-cumulativeGapW;
   const postActiveCards = Math.floor(postContainerWidth/eWCard);
   let x1 = 0;
   let x2 = postActiveCards;   
@@ -407,23 +407,26 @@ const init = async () => {
     }
   });
 
-  const toggleButton = document.getElementsByClassName('player-card-toggle')[0];
+  const toggleButton = document.getElementsByClassName('toggle-icon')[0];
   console.log(toggleButton);
 
   toggleButton.addEventListener('click', ()=>{
     console.log('Toggle click');
-    
     carouselContainer[0].classList.toggle("active");
-    toggleButton.children[1].classList.toggle("fa-toggle-off");
-    toggleButton.children[1].classList.toggle("fa-toggle-on");
-    update(getRoster());
+    toggleButton.classList.toggle("fa-toggle-off");
+    toggleButton.classList.toggle("fa-toggle-on");
+    if(carouselContainer[0].classList.contains("active")){
+      updateCarousel(x1,x2);}
+    else{
+      update(getRoster());
+    }
   })
 
 
 };
 const generateSelectSort = () => {
   const selectMenu = document.createElement("select");
-  selectMenu.classList.add("select-sort,options-sort");
+  selectMenu.classList.add("select-sort","options-sort");
   selectMenu.setAttribute("name", "sorting");
   const options = `
   <option value="ID">ID</option>
@@ -448,7 +451,7 @@ const generateSelectSort = () => {
 
 const generateSelectFilter = () => {
   const filterMenu = document.createElement("select");
-  filterMenu.classList.add("select-filter", "options-filter");
+  filterMenu.classList.add("select-filter", "options-filter", "filter-el");
   filterMenu.setAttribute("name", "filtering");
   const options = `
   <option value="ID">ID</option>
@@ -463,11 +466,11 @@ const generateSelectFilter = () => {
   filterMenu.innerHTML = options;
 
   const filterInput = document.createElement("input");
-  filterInput.classList.add("select-filter");
+  filterInput.classList.add("select-filter", "filter-el");
   filterInput.setAttribute("id", "input-filter");
 
   const filterButton = document.createElement("button");
-  filterButton.classList.add("select-filter");
+  filterButton.classList.add("select-filter", "filter-el");
   filterButton.setAttribute("id", "button-filter");
   filterButton.innerHTML = "Apply";
   filterButton.addEventListener("click", (e) => {
@@ -483,7 +486,7 @@ const generateSelectFilter = () => {
     update(filteredplayers);
   });
 
-  const container = document.getElementsByClassName("select-filter");
+  const container = document.getElementsByClassName("select-filter-container");
   container[0].appendChild(filterMenu);
   container[0].appendChild(filterInput);
   container[0].appendChild(filterButton);

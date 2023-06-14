@@ -27,6 +27,7 @@ nav{
   min-height: 100vh;
 }
 .div-header{
+  
   z-index: 100;
 }
 
@@ -56,12 +57,13 @@ nav{
 
 .content-ul-li{
   display: grid;
-  grid-template-columns: .225fr .045fr .73fr;
+  grid-template-columns: .225fr 4em .73fr;
 }
 
 .player-select{
-  display: flex;
-  flex-wrap: wrap;
+  position: relative;
+  display: grid;
+  grid-template-columns: 100px 250px auto 150px;
 }
 
 .carousel{
